@@ -20,16 +20,41 @@
 // Returns: A boolean value: True for bitonic sequences, false otherwise.
 bool is_bitonic(const std::vector<int> &v){
     
-    // Write your code here
-
-    return false;
+    int count = 0, asc = 0;
+    for(int i = 0; i < v.size()-1 ; i++)
+    {
+        if(v[i] < v[i+1])
+        {
+            if(i == 0 || asc != 1)
+                count++;
+            asc = 1;
+        }
+        else if (v[i] > v[i+1])
+        {
+            if(i == 0 || asc != 2)
+                count++;
+            asc = 2;
+        }
+                
+    }
+    if(count == 3)
+    {
+        if(asc == 1 && v[v.size()-1] <= v[0])
+            return true;
+        if(asc == 2 && v[v.size()-1] >= v[0])
+            return true;
+    }
+    else if(count < 3)
+        return true;
+    else    
+        return false;
 }
 
 // Main function
 int main(){
     // Uncomment one of these lines and make sure you get the result at the right. 
     
-    std::vector<int> myvec = {1, 2, 5, 4, 3};  // Yes
+    //std::vector<int> myvec = {1, 2, 5, 4, 3};  // Yes
     // std::vector<int> myvec = {1, 1, 1, 1, 1};  // Yes
     // std::vector<int> myvec = {3, 4, 5, 2, 2};  // Yes
     // std::vector<int> myvec = {3, 4, 5, 2, 4};  // No
@@ -38,7 +63,7 @@ int main(){
     // std::vector<int> myvec = {5, 4, 6, 2, 6};  // No
     // std::vector<int> myvec = {5, 4, 3, 2, 1};  // Yes
     // std::vector<int> myvec = {5, 4, 3, 2, 6};  // Yes
-    // std::vector<int> myvec = {5, 4, 6, 5, 4};  // No
+     std::vector<int> myvec = {5, 4, 6, 5, 4};  // No
     // std::vector<int> myvec = {5, 4, 6, 5, 5};  // Yes
 
     std::cout << (is_bitonic(myvec) == true ? "Yes, it is bitonic." : "No, it is not bitonic.");
